@@ -96,4 +96,31 @@ if (typeof SFLYQ == 'undefined') {
         if (getValue == "") return "";
         return "[" + selField + "*='" + getValue + "']";
     };
+    sStor.getParamesObj=function(inputSels){
+        /// <summary>表单选择器集合，返回表单name对应的value 对象</summary>
+        /// <param name="inputSel" type="string">表单选择器集合</param>
+        var parameObj={};
+        var inputJqs=$(inputSels);
+        var lengthNum=inputJqs.length;
+        if(!inputJqs || lengthNum<=0) return {};
+        for (var i = 0; i < lengthNum; i++) {
+            var itemJq=inputJqs.eq(i)
+            if(!itemJq) continue;
+            var name=itemJq.attr("name");
+            var value=itemJq.val();
+            if(!name) continue;
+            parameObj[name]=value;
+        }
+        return parameObj;
+    };
+    //----全能帮助
+    SFLYQ.Helper.SuperHander={};
+    var sp=SFLYQ.Helper.SuperHander;
+    sp.keyDownDo=function(evt,keyCodeNum,doFn){
+        /// <summary>更具键位唯一标示码来操作</summary>
+        /// <param name="keyCodeNum" type="string">键位唯一标示编码(回车是13)</param>
+        /// <param name="doFn" type="function">按下键位后的操作</param>
+        var evt=evt?evt:(window.event?window.event:null);//兼容IE和FF
+        if (evt.keyCode==keyCodeNum)if(doFn)doFn();
+    };
 })();
