@@ -117,10 +117,27 @@ if (typeof SFLYQ == 'undefined') {
     SFLYQ.Helper.SuperHander={};
     var sp=SFLYQ.Helper.SuperHander;
     sp.keyDownDo=function(evt,keyCodeNum,doFn){
-        /// <summary>更具键位唯一标示码来操作</summary>
+        /// <summary>根据键位唯一标示码来操作</summary>
         /// <param name="keyCodeNum" type="string">键位唯一标示编码(回车是13)</param>
         /// <param name="doFn" type="function">按下键位后的操作</param>
         var evt=evt?evt:(window.event?window.event:null);//兼容IE和FF
         if (evt.keyCode==keyCodeNum)if(doFn)doFn();
+    };
+    sp.GetFormValue=function(tagJqs){
+        /// <summary>根据表单提交的标签集合返回提交的名值数据对象</summary>
+        /// <param name="tagJqs" type="string">表单提交的标签Jq对象集合</param>
+        var parames={};
+        if(!tagJqs||tagJqs.length<=0)return param;
+        for (var i = 0; i < tagJqs.length; i++) {
+            var itemJq=$(tagJqs[i]);
+            var tagName=itemJq[0].tagName;
+            if(tagName=="INPUT" || tagName=="TEXTAREA"){
+                var name=itemJq.attr("name");
+                var value=itemJq.val();
+                if(!name)continue;
+                parames[name]=value;
+            }
+        }
+        return parames;
     };
 })();
