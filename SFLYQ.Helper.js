@@ -131,10 +131,22 @@ if (typeof SFLYQ == 'undefined') {
         for (var i = 0; i < tagJqs.length; i++) {
             var itemJq=$(tagJqs[i]);
             var tagName=itemJq[0].tagName;
-            if(tagName=="INPUT" || tagName=="TEXTAREA"){
-                var name=itemJq.attr("name");
+            var name=itemJq.attr("name");
+            var typeName=itemJq.attr("type");
+            if(!name)continue;
+            if(parames[name])continue;
+            if(tagName=="INPUT" && typeName=="radio"){
+                var radiosJq=tagJqs.filter("[type='radio'][name='"+name+"']"); 
+                if(radiosJq==null || radiosJq.length<=0) continue;
+                var value=radiosJq.filter(":checked").val();
+                parames[name]=value;
+                //tagJqs.remove(radiosJq);
+            }else if((tagName=="INPUT" || tagName=="TEXTAREA")){
                 var value=itemJq.val();
-                if(!name)continue;
+                parames[name]=value;
+            }else if(tagName=="SELECT"){
+                var selOption=itemJq.find("option:selected");
+                var value=selOption.val();
                 parames[name]=value;
             }
         }
