@@ -3,7 +3,6 @@
 **** SFLYQ
 **** 2014-3-10
 */
-/// <reference path="/JS/jquery.1.9.1.min.js" />
 if (typeof SFLYQ == 'undefined') {
     var SFLYQ = {};
 }

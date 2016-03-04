@@ -4,8 +4,8 @@
 **** 2014-3-19
 **** 搜索来源关键字获取
 */
-/// <reference path="/JS/jquery.1.9.1.min.js" />
-/// <reference path="/JS/SFLYQ.Helper.js" />
+/// <reference path="jquery.min.js" />
+/// <reference path="SFLYQ.Helper.js" />
 if (typeof SFLYQ == 'undefined') {
 	var SFLYQ = {};
 }
