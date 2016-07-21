@@ -1,4 +1,7 @@
 
+interface Date {
+    Format(fms: string): string;
+}
 module SFLYQ {
     /**帮助类*/
     export class Helper {
@@ -23,7 +26,7 @@ module SFLYQ {
         static clearSpace(str: string): string {
             return str.replace(/\s/g, "");
         }
-        
+
         /**
          * 数字字符串，数位用','隔开。如得到字符串"3,444,567,123
          * num number 数值
@@ -129,5 +132,31 @@ module SFLYQ {
             }
             return parames;
         }
+
+    }
+
+    /**拓展帮助类 */
+    export class Extend {
+        ini(): void {
+            Date.prototype.Format = function(fmt: string) {
+                var o = {
+                    "M+": this.getMonth() + 1, //月份
+                    "d+": this.getDate(), //日
+                    "h+": this.getHours(), //小时
+                    "m+": this.getMinutes(), //分
+                    "s+": this.getSeconds(), //秒
+                    "q+": Math.floor((this.getMonth() + 3) / 3), //季度
+                    "S": this.getMilliseconds() //毫秒
+                };
+                if (/(y+)/.test(fmt)) fmt = fmt.replace(RegExp.$1, (this.getFullYear() + "").substr(4 - RegExp.$1.length));
+                for (var k in o)
+                    if (new RegExp("(" + k + ")").test(fmt)) fmt = fmt.replace(RegExp.$1, (RegExp.$1.length == 1) ? (o[k]) : (("00" + o[k]).substr(("" + o[k]).length)));
+                return fmt;
+            }
+        }
     }
 }
+
+(new SFLYQ.Extend().ini())
+
+
